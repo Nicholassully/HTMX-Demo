@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTMX Demo</title>
+    <script src="https://unpkg.com/htmx.org@1.9.2"></script>
+    <style>
+        .loading {
+            opacity: 0.5;
+        }
+    </style>
+</head>
+<body>
+<h1>HTMX Demo</h1>
+<div hx-get="/items" hx-trigger="load" hx-swap="innerHTML" class="loading">
+    Loading items...
+</div>
+<div hx-get="/other" hx-trigger="load" hx-swap="innerHTML" class="loading">
+    Loading other content...
+</div>
+
+<script>
+    document.body.addEventListener('htmx:beforeRequest', function(evt) {
+        evt.target.classList.add('loading');
+    });
+    document.body.addEventListener('htmx:afterRequest', function(evt) {
+        evt.target.classList.remove('loading');
+    });
+</script>
+</body>
+</html>

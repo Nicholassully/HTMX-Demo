@@ -1,0 +1,19 @@
+<h2>Item List</h2>
+<ul id="item-list">
+    {{range $index, $item := .}}
+    <li>
+        {{ $item }}
+        <button hx-post="/delete_item" hx-include="[name=index]" hx-target="div[hx-get='/items']" hx-swap="innerHTML">
+            Delete
+        </button>
+        <input type="hidden" name="index" value="{{ $index }}">
+    </li>
+    {{end}}
+</ul>
+
+<form id="add-item-form" hx-post="/add_item" hx-target="div[hx-get='/items']" hx-swap="innerHTML">
+    <input type="text" name="item" placeholder="New item" required>
+    <button type="submit">Add Item</button>
+</form>
+
+<div id="error-message"></div>
